@@ -1,1 +1,1 @@
-# easyon_client
+# EasyOn : C# 소켓 클라이언트
