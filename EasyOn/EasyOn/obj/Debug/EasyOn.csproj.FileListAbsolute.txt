@@ -13,3 +13,18 @@ C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\
 C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Debug\EasyOn.WriteForm.resources
 C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Debug\EasyOn.ReadForm.resources
 C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Debug\EasyOn.MemoListForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.exe
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.pdb
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\bin\Debug\EasyOn.exe
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\bin\Debug\EasyOn.pdb
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\bin\Debug\ObjectListView.dll
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\bin\Debug\ObjectListView.xml
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.MemoListForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.BuddyRequestForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.LoginForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.MainForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.Properties.Resources.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.WriteForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.ReadForm.resources
+C:\Users\Administrator\내 문서\GitHub\easyon_client\EasyOn\EasyOn\obj\Debug\EasyOn.csproj.GenerateResource.Cache

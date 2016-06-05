@@ -17,6 +17,7 @@ namespace EasyOn {
 
             // worker event 등록
             Worker.getInstance().loginResultEvent += new Worker.loginResultDelegate(showLoginResult);
+            Worker.getInstance().joinResultEvent += new Worker.joinResultDelegate(showJoinResult);
         }
 
         // form border paint
@@ -42,6 +43,23 @@ namespace EasyOn {
                     id.Focus();
                     id.SelectAll();
                 }
+            }
+        }
+
+        // 회원가입 결과
+        private void showJoinResult(string result) {
+            if (InvokeRequired) {
+                this.Invoke(new Worker.joinResultDelegate(showJoinResult), result);
+            } else {
+                if (result == "성공") {
+                    MessageBox.Show("회원 가입에 성공 하였습니다. 로그인 해주세요.", "EasyOn", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                } else {
+                    MessageBox.Show(result, "EasyOn", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                controlEnable(true);
+                Worker.getInstance().stop();
+                id.Focus();
+                id.SelectAll();
             }
         }
         #endregion
@@ -86,13 +104,23 @@ namespace EasyOn {
             }
 
             controlEnable(false);
-            Worker.getInstance().start("127.0.0.1", 2000, id.Text, password.Text);
+            Worker.getInstance().start("127.0.0.1", 2000, id.Text, password.Text, Worker.TYPE_LOGIN);
             password.Text = "";
         }
 
         // 회원가입 클릭
         private void joinBtn_Click(object sender, EventArgs e) {
+            if (id.Text.Trim() == "") {
+                MessageBox.Show("올바른 아이디를 입력 해주세요.", "EasyOn", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            } else if (password.Text.Trim() == "") {
+                MessageBox.Show("올바른 비밀번호를 입력 해주세요.", "EasyOn", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             controlEnable(false);
+            Worker.getInstance().start("127.0.0.1", 2000, id.Text, password.Text, Worker.TYPE_JOIN);
+            password.Text = "";
         }
 
         // x 버튼 클릭

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyCode\Packet\ClientPacket\C_Join.cs" />
     <Compile Include="MyCode\Model\Memo.cs" />
     <Compile Include="MyCode\Form\MemoListForm.cs">
       <SubType>Form</SubType>
@@ -105,6 +106,7 @@
     <Compile Include="MyCode\Form\WriteForm.Designer.cs">
       <DependentUpon>WriteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyCode\Packet\ServerPacket\S_JoinResult.cs" />
     <EmbeddedResource Include="MyCode\Form\MemoListForm.resx">
       <DependentUpon>MemoListForm.cs</DependentUpon>
     </EmbeddedResource>

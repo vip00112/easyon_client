@@ -14,6 +14,10 @@ namespace EasyOn {
 
         private static readonly int MAX_SIZE = 1024 * 1024; // 수신 버퍼 최대 크기
 
+        private int _type;
+        public const int TYPE_LOGIN = 1;
+        public const int TYPE_JOIN = 2;
+
         #region member field
         private Socket _server;
         private string _ip; // server IP
@@ -31,7 +35,7 @@ namespace EasyOn {
 
         #region 소켓 연결/해제
         // Socket 연결
-        public void start(string ip, int port, string id, string password) {
+        public void start(string ip, int port, string id, string password, int type) {
             if (!_isStart) {
                 _isStart = true;
                 _isAlive = true;
@@ -40,6 +44,7 @@ namespace EasyOn {
                 _port = port;
                 _id = id;
                 _password = password;
+                _type = type;
                 _packetData = new byte[MAX_SIZE];
                 _packetIdx = 0;
 
@@ -92,9 +97,16 @@ namespace EasyOn {
                     _workingThread.Start();
                 }
 
-                // 계정 정보 전송
-                sendPacket(new C_Login(_id, _password));
-                Console.WriteLine("++ 계정정보 전송 완료 : " + _id + " / " + _password);
+                switch (_type) {
+                    case TYPE_LOGIN: // 계정 정보 전송
+                        sendPacket(new C_Login(_id, _password));
+                        Console.WriteLine("++ 로그인 정보 전송 완료 : " + _id + " / " + _password);
+                        break;
+                    case TYPE_JOIN: // 회원가입
+                        sendPacket(new C_Join(_id, _password));
+                        Console.WriteLine("++ 회원가입 전송 완료 : " + _id + " / " + _password);
+                        break;
+                }
             } catch (SocketException e) {
                 if (e.ErrorCode == 10061) {
                     Console.WriteLine("++ SocketException : 서버가 닫혀 있습니다. [ " + _ip + ":" + _port + " ]");
@@ -255,6 +267,9 @@ namespace EasyOn {
                 case Opcodes.S_MEMO: // 쪽지 관련
                     new S_Memo(this, packet);
                     break;
+                case Opcodes.S_JOIN_RESULT: // 회원가입 결과
+                    new S_JoinResult(this, packet);
+                    break;
             }
         }
         #endregion
@@ -266,6 +281,15 @@ namespace EasyOn {
         public void showLoginResult(string result) {
             if (loginResultEvent != null) {
                 loginResultEvent(result);
+            }
+        }
+
+        // 회원가입 결과
+        public delegate void joinResultDelegate(string result);
+        public event joinResultDelegate joinResultEvent;
+        public void showJoinResult(string result) {
+            if (joinResultEvent != null) {
+                joinResultEvent(result);
             }
         }
 
