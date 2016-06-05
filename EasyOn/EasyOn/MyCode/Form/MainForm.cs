@@ -19,14 +19,18 @@ namespace EasyOn {
         // MyBox
         private User _user;
 
+        // 쪽지함 Form
+        private MemoListForm _memoForm;
+
         #region Form
         // Form Create
         public MainForm() {
             InitializeComponent();
             Width = 395;
 
+            _memoForm = new MemoListForm();
             setObjectListView(); // ObjectListView 설정
-            setMenu(); // 메뉴 설정
+            setMenuPanel(); // 메뉴 설정
             setTooltip(); // tooltip
 
             // worker event 등록
@@ -37,8 +41,8 @@ namespace EasyOn {
             Worker.getInstance().searchResultEvent += new Worker.searchResultDelegate(showSearchResult);
             Worker.getInstance().buddyRequestEvent += new Worker.buddyRequestDelegate(showBuddyRequest);
             Worker.getInstance().buddyGroupListEvent += new Worker.buddyGroupListDelegate(setBuddyGroupList);
-            Worker.getInstance().chatListEvent += new Worker.chatListDelegate(setChatList);
-            Worker.getInstance().addChatEvent += new Worker.addChatDelegate(addChat);
+            Worker.getInstance().readMemoEvent += new Worker.readMemoDelegate(showReadMemo);
+            Worker.getInstance().notReadMemoCountEvent += new Worker.notReadMemoCountDelegate(setNotReadMemoCount);
 
             titleButton_Max.Enabled = _isPossibleMax;
             new LoginForm().ShowDialog();
@@ -58,12 +62,12 @@ namespace EasyOn {
         }
 
         // 메뉴 설정
-        private void setMenu() {
-            menu.Parent = this;
-            menu.Width = Width - 2;
-            menu.Height = Height - titleBar.Height - 2;
-            menu.Location = new Point(1, titleBar.Height + 1);
-            menu.BringToFront();
+        private void setMenuPanel() {
+            menuPanel.Parent = this;
+            menuPanel.Width = Width - 2;
+            menuPanel.Height = Height - titleBar.Height - 2;
+            menuPanel.Location = new Point(1, titleBar.Height + 1);
+            menuPanel.BringToFront();
         }
 
         // tooltip
@@ -74,6 +78,7 @@ namespace EasyOn {
             tooltip.ReshowDelay = 500;
 
             tooltip.SetToolTip(titleIcon, "메뉴");
+            tooltip.SetToolTip(memoIcon, "쪽지함");
             tooltip.SetToolTip(profile, "프로필 사진 변경");
             tooltip.SetToolTip(nickname_Text, "닉네임 변경");
             tooltip.SetToolTip(statusMsg_Text, "상태 메시지 변경");
@@ -101,9 +106,9 @@ namespace EasyOn {
         }
 
         // itemList 추가 : 친구 목록 설정
-        private void addBuddyList(List<User> buddys) {
-            _user.buddyList = buddys;
-            buddyList.SetObjects(_user.buddyList);
+        private void addBuddyList(List<User> buddyList) {
+            _user.buddyList = buddyList;
+            this.buddyList.SetObjects(_user.buddyList);
         }
 
         // item 추가 : 친구 추가
@@ -152,26 +157,17 @@ namespace EasyOn {
             }
         }
 
-        // listview item active event : 더블클릭/엔터 이벤트 -> 채팅창 개설
+        // listview item active event : 더블클릭/엔터 이벤트 -> 쪽지 보내기
         private void buddyList_ItemActivate(object sender, EventArgs e) {
            User buddy = buddyList.SelectedObject as User;
             if (buddy != null) {
-                Chat chat = _user.chatList.Find(c => c.isJoinedUser(buddy.no));
-                if (chat == null) { // 새로운 채팅창 개설
-                    chat = new Chat(0, DateTime.Now);
-                    List<User> memberList = new List<User>();
-                    memberList.Add(_user);
-                    memberList.Add(buddy);
-                    chat.memberList = memberList;
-                    Worker.getInstance().sendPacket(new C_Chat(C_Chat.TYPE_OPEN, chat));
-                }
-                ChatForm cf = new ChatForm(_user, chat);
-                cf.Show();
+                WriteForm wf = new WriteForm(_user, buddy);
+                wf.Show();
             }
         }
         #endregion
 
-        #region worker event
+        #region worker Events
         // 내정보
         private void setMyInfo(User user) {
             if (InvokeRequired) {
@@ -180,6 +176,7 @@ namespace EasyOn {
                 _user = user;
                 nickname_Text.Text = user.nickname;
                 statusMsg_Text.Text = user.statusMsg;
+                _memoForm.setUser(user);
 
                 // 프로필 이미지
                 byte[] data = user.profile;
@@ -270,21 +267,32 @@ namespace EasyOn {
             }
         }
 
-        // 채팅 목록
-        private void setChatList(List<Chat> chatList) {
+        // 쪽지 수신
+        private void showReadMemo(Memo memo) {
             if (InvokeRequired) {
-                this.Invoke(new Worker.chatListDelegate(setChatList), chatList);
+                this.Invoke(new Worker.readMemoDelegate(showReadMemo), memo);
             } else {
-                _user.chatList = chatList;
+                _memoForm.addMemo(memo);
+                ReadForm rf = new ReadForm(_user, memo);
+                rf.Show();
             }
         }
 
-        // 새로운 채팅
-        private void addChat(Chat chat) {
+        // 미확인 쪽지 갯수
+        private void setNotReadMemoCount(int count) {
             if (InvokeRequired) {
-                this.Invoke(new Worker.addChatDelegate(addChat), chat);
+                this.Invoke(new Worker.notReadMemoCountDelegate(setNotReadMemoCount), count);
             } else {
-                _user.chatList.Add(chat);
+                if (count > 0) {
+                    newMemoLabel.Parent = memoIcon;
+                    newMemoLabel.Location = new Point(memoIcon.Width - newMemoLabel.Width, 1);
+
+                    newMemoLabel.Enabled = true;
+                    newMemoLabel.Visible = true;
+                } else {
+                    newMemoLabel.Enabled = false;
+                    newMemoLabel.Visible = false;
+                }
             }
         }
         #endregion
@@ -334,18 +342,40 @@ namespace EasyOn {
         }
         #endregion
 
-        // 아이콘 클릭
-        private void titleIcon_Click(object sender, EventArgs e) {
-            if (menu.Visible) {
-                menu.Hide();
+        // 메뉴 아이콘 show/hide
+        private void visibleTitleIcon(bool isVisible) {
+            if (isVisible) {
+                titleIcon.BackColor = Color.White;
+                menuPanel.Show();
+                menuPanel.BringToFront();
             } else {
-                resetFindBuddy();
-                resetManagementBuddy();
-                menu.Show();
+                menuPanel.Hide();
+                titleIcon.BackColor = Color.FromArgb(221, 221, 221);
             }
         }
 
-        // mouse click
+        // 메뉴 아이콘 클릭
+        private void titleIcon_Click(object sender, EventArgs e) {
+            if (menuPanel.Visible) {
+                visibleTitleIcon(false);
+            } else {
+                resetFindBuddy();
+                resetManagementBuddy();
+                visibleTitleIcon(true);
+            }
+        }
+
+        // 쪽지함 아이콘 클릭
+        private void memoIcon_Click(object sender, EventArgs e) {
+            if (_memoForm.Visible) {
+                _memoForm.Hide();
+            } else {
+                _memoForm.resetMemoWriter();
+                _memoForm.Show();
+            }
+        }
+
+        // 최소화, 닫기 버튼 클릭
         private void titleBarButton_Click(object sender, EventArgs e) {
             if (sender == titleButton_Min) {
                 WindowState = FormWindowState.Minimized;

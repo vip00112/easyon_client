@@ -55,11 +55,6 @@ namespace EasyOn {
             get; set;
         }
 
-        // 채팅 목록
-        public List<Chat> chatList {
-            get; set;
-        }
-
         public User(int no, string id, string password, string nickname, string statusMsg, byte[] profile) {
             this.no = no;
             this.id = id;
@@ -87,5 +82,12 @@ namespace EasyOn {
             this.isOnline = isOnline;
             this.groupName = groupName;
         }
+
+        public User(int no, string id, string nickname) {
+            this.no = no;
+            this.id = id;
+            this.nickname = nickname;
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace EasyOn {
-    class C_UpdateGroup : SendPacket {
+    class C_UpdateGroup : WritePacket {
 
         public C_UpdateGroup(User user) {
             writeC(Opcodes.C_UPDATE_GROUP);

@@ -8,3 +8,7 @@ C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\bin\
 C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\bin\Release\ObjectListView.dll
 C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\bin\Release\ObjectListView.xml
 C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Release\EasyOn.exe
+C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Release\EasyOn.MemoListForm.resources
+C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Release\EasyOn.BuddyRequestForm.resources
+C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Release\EasyOn.WriteForm.resources
+C:\Users\Administrator\내 문서\Visual Studio 2015\Projects\EasyOn\EasyOn\obj\Release\EasyOn.ReadForm.resources

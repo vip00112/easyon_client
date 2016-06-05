@@ -159,7 +159,7 @@ namespace EasyOn {
         }
 
         // server로 패킷 전송
-        public void sendPacket(SendPacket packet) {
+        public void sendPacket(WritePacket packet) {
             try {
                 byte[] data = packet.getPacketData();
                 _server.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(sendResultEvent), _server);
@@ -252,8 +252,8 @@ namespace EasyOn {
                 case Opcodes.S_BUDDY: // 친구 관련
                     new S_Buddy(this, packet);
                     break;
-                case Opcodes.S_CHAT: // 채팅 관련
-                    new S_Chat(this, packet);
+                case Opcodes.S_MEMO: // 쪽지 관련
+                    new S_Memo(this, packet);
                     break;
             }
         }
@@ -332,30 +332,30 @@ namespace EasyOn {
             }
         }
 
-        // 채팅 목록
-        public delegate void chatListDelegate(List<Chat> chatList);
-        public event chatListDelegate chatListEvent;
-        public void setChatList(List<Chat> chatList) {
-            if (chatListEvent != null) {
-                chatListEvent(chatList);
+        // 쪽지 수신
+        public delegate void readMemoDelegate(Memo memo);
+        public event readMemoDelegate readMemoEvent;
+        public void showReadMemo(Memo memo) {
+            if (readMemoEvent != null) {
+                readMemoEvent(memo);
             }
         }
 
-        // 새로운 채팅
-        public delegate void addChatDelegate(Chat chat);
-        public event addChatDelegate addChatEvent;
-        public void addChat(Chat chat) {
-            if (addChatEvent != null) {
-                addChatEvent(chat);
+        // 수신 쪽지 목록
+        public delegate void readMemoListDelegate(List<Memo> memoList);
+        public event readMemoListDelegate readMemoListEvent;
+        public void setReadListMemo(List<Memo> memoList) {
+            if (readMemoListEvent != null) {
+                readMemoListEvent(memoList);
             }
         }
 
-        // 이전 대화 목록
-        public delegate void chatLogDelegate(ChatLog log);
-        public event chatLogDelegate chatLogEvent;
-        public void addChatLog(ChatLog log) {
-            if (chatLogEvent != null) {
-                chatLogEvent(log);
+        // 미확인 쪽지 갯수
+        public delegate void notReadMemoCountDelegate(int count);
+        public event notReadMemoCountDelegate notReadMemoCountEvent;
+        public void setNotReadMemoCount(int count) {
+            if (notReadMemoCountEvent != null) {
+                notReadMemoCountEvent(count);
             }
         }
         #endregion

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace EasyOn {
-    class C_UpdateMyInfo : SendPacket {
+    class C_UpdateMyInfo : WritePacket {
 
         public C_UpdateMyInfo(User user) {
             writeC(Opcodes.C_UPDATE_MYINFO);

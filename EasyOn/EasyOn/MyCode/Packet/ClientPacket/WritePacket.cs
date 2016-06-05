@@ -2,11 +2,11 @@
 using System.Text;
 
 namespace EasyOn {
-    class SendPacket {
+    class WritePacket {
         private byte[] _data;
         private int _offset;
 
-        protected SendPacket() {
+        protected WritePacket() {
             _data = new byte[1024 * 128];
             _offset = 0;
         }

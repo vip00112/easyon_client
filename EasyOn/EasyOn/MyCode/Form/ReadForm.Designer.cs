@@ -1,5 +1,5 @@
 ﻿namespace EasyOn {
-    partial class ChatForm {
+    partial class ReadForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -23,20 +23,15 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReadForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.titleLabel = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
             this.minBtn = new System.Windows.Forms.Button();
-            this.messageBox = new System.Windows.Forms.RichTextBox();
+            this.readMsg = new System.Windows.Forms.RichTextBox();
             this.sendButton = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.chatList = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.writeMsg = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
-            this.chatList.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -48,7 +43,7 @@
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(390, 30);
-            this.panel1.TabIndex = 8;
+            this.panel1.TabIndex = 9;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.form_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.form_MouseMove);
             // 
@@ -59,9 +54,9 @@
             this.titleLabel.ForeColor = System.Drawing.Color.Black;
             this.titleLabel.Location = new System.Drawing.Point(3, 9);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(42, 15);
+            this.titleLabel.Size = new System.Drawing.Size(147, 15);
             this.titleLabel.TabIndex = 1;
-            this.titleLabel.Text = "label1";
+            this.titleLabel.Text = "운영자 (admin) 님의 쪽지";
             // 
             // closeBtn
             // 
@@ -104,15 +99,17 @@
             this.minBtn.MouseEnter += new System.EventHandler(this.flatButton_MouseEnter);
             this.minBtn.MouseLeave += new System.EventHandler(this.flatButton_MouseLeave);
             // 
-            // messageBox
+            // readMsg
             // 
-            this.messageBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.messageBox.Location = new System.Drawing.Point(1, 454);
-            this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(330, 156);
-            this.messageBox.TabIndex = 10;
-            this.messageBox.Text = "";
-            this.messageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageBox_KeyDown);
+            this.readMsg.BackColor = System.Drawing.Color.White;
+            this.readMsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.readMsg.Location = new System.Drawing.Point(1, 37);
+            this.readMsg.Name = "readMsg";
+            this.readMsg.ReadOnly = true;
+            this.readMsg.Size = new System.Drawing.Size(390, 216);
+            this.readMsg.TabIndex = 0;
+            this.readMsg.TabStop = false;
+            this.readMsg.Text = "";
             // 
             // sendButton
             // 
@@ -124,86 +121,45 @@
             this.sendButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.sendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.sendButton.Location = new System.Drawing.Point(333, 454);
+            this.sendButton.Location = new System.Drawing.Point(333, 259);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(58, 156);
-            this.sendButton.TabIndex = 11;
+            this.sendButton.TabIndex = 1;
             this.sendButton.Text = "전송";
             this.sendButton.UseVisualStyleBackColor = false;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            this.sendButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.esc_KeyDown);
             this.sendButton.MouseEnter += new System.EventHandler(this.flatButton_MouseEnter);
             this.sendButton.MouseLeave += new System.EventHandler(this.flatButton_MouseLeave);
             // 
-            // panel3
+            // writeMsg
             // 
-            this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Location = new System.Drawing.Point(1, 429);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(390, 23);
-            this.panel3.TabIndex = 12;
+            this.writeMsg.BackColor = System.Drawing.Color.White;
+            this.writeMsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.writeMsg.Location = new System.Drawing.Point(1, 259);
+            this.writeMsg.Name = "writeMsg";
+            this.writeMsg.Size = new System.Drawing.Size(326, 156);
+            this.writeMsg.TabIndex = 0;
+            this.writeMsg.Text = "";
+            this.writeMsg.KeyDown += new System.Windows.Forms.KeyEventHandler(this.esc_KeyDown);
             // 
-            // chatList
-            // 
-            this.chatList.AutoScroll = true;
-            this.chatList.BackColor = System.Drawing.Color.White;
-            this.chatList.Controls.Add(this.label3);
-            this.chatList.Controls.Add(this.label2);
-            this.chatList.Controls.Add(this.label1);
-            this.chatList.Location = new System.Drawing.Point(1, 31);
-            this.chatList.Name = "chatList";
-            this.chatList.Size = new System.Drawing.Size(390, 397);
-            this.chatList.TabIndex = 9;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.label2.Location = new System.Drawing.Point(279, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "05/17 01:25:10";
-            this.label2.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "김태건";
-            this.label1.Visible = false;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label3.Location = new System.Drawing.Point(3, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(359, 98);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "label3";
-            this.label3.Visible = false;
-            // 
-            // ChatForm
+            // ReadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 612);
-            this.Controls.Add(this.panel3);
+            this.ClientSize = new System.Drawing.Size(392, 417);
             this.Controls.Add(this.sendButton);
-            this.Controls.Add(this.messageBox);
-            this.Controls.Add(this.chatList);
+            this.Controls.Add(this.writeMsg);
+            this.Controls.Add(this.readMsg);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ChatForm";
-            this.Text = "채팅창";
+            this.Name = "ReadForm";
+            this.Text = "Title";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.form_BoderPaint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.esc_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.chatList.ResumeLayout(false);
-            this.chatList.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -211,15 +167,11 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button minBtn;
-        private System.Windows.Forms.RichTextBox messageBox;
-        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.RichTextBox readMsg;
         private System.Windows.Forms.Button sendButton;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel chatList;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox writeMsg;
     }
 }

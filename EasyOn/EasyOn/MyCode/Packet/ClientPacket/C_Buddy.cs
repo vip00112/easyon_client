@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace EasyOn {
-    class C_Buddy : SendPacket {
+    class C_Buddy : WritePacket {
 
         public const int TYPE_ADD = 1; // 친구 추가
         public const int TYPE_REMOVE = 2; // 친구 삭제

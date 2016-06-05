@@ -25,6 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.titleBar = new System.Windows.Forms.Panel();
+            this.newMemoLabel = new System.Windows.Forms.Label();
+            this.memoIcon = new System.Windows.Forms.PictureBox();
             this.titleButton_Min = new System.Windows.Forms.Button();
             this.titleButton_Max = new System.Windows.Forms.Button();
             this.titleButton_Close = new System.Windows.Forms.Button();
@@ -35,7 +37,7 @@
             this.statusMsg = new System.Windows.Forms.Label();
             this.nickname = new System.Windows.Forms.Label();
             this.profile = new System.Windows.Forms.PictureBox();
-            this.menu = new System.Windows.Forms.Panel();
+            this.menuPanel = new System.Windows.Forms.Panel();
             this.menuTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.no_Search = new System.Windows.Forms.Label();
@@ -71,10 +73,11 @@
             this.NicknameColum = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.StatusMsgColum = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.titleBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memoIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleIcon)).BeginInit();
             this.myBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profile)).BeginInit();
-            this.menu.SuspendLayout();
+            this.menuPanel.SuspendLayout();
             this.menuTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profile_Search)).BeginInit();
@@ -88,6 +91,8 @@
             // titleBar
             // 
             this.titleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
+            this.titleBar.Controls.Add(this.newMemoLabel);
+            this.titleBar.Controls.Add(this.memoIcon);
             this.titleBar.Controls.Add(this.titleButton_Min);
             this.titleBar.Controls.Add(this.titleButton_Max);
             this.titleBar.Controls.Add(this.titleButton_Close);
@@ -99,6 +104,34 @@
             this.titleBar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.titleBar_DoubleClick);
             this.titleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBar_Down);
             this.titleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBar_Move);
+            // 
+            // newMemoLabel
+            // 
+            this.newMemoLabel.AutoSize = true;
+            this.newMemoLabel.BackColor = System.Drawing.Color.Transparent;
+            this.newMemoLabel.Enabled = false;
+            this.newMemoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.newMemoLabel.ForeColor = System.Drawing.Color.Red;
+            this.newMemoLabel.Location = new System.Drawing.Point(52, 0);
+            this.newMemoLabel.Name = "newMemoLabel";
+            this.newMemoLabel.Size = new System.Drawing.Size(12, 9);
+            this.newMemoLabel.TabIndex = 2;
+            this.newMemoLabel.Text = "N";
+            this.newMemoLabel.Visible = false;
+            this.newMemoLabel.Click += new System.EventHandler(this.memoIcon_Click);
+            // 
+            // memoIcon
+            // 
+            this.memoIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.memoIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.memoIcon.Image = global::EasyOn.Properties.Resources.memo;
+            this.memoIcon.Location = new System.Drawing.Point(32, 0);
+            this.memoIcon.Name = "memoIcon";
+            this.memoIcon.Size = new System.Drawing.Size(32, 30);
+            this.memoIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.memoIcon.TabIndex = 1;
+            this.memoIcon.TabStop = false;
+            this.memoIcon.Click += new System.EventHandler(this.memoIcon_Click);
             // 
             // titleButton_Min
             // 
@@ -165,6 +198,7 @@
             // 
             // titleIcon
             // 
+            this.titleIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
             this.titleIcon.Cursor = System.Windows.Forms.Cursors.Hand;
             this.titleIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.titleIcon.Image = ((System.Drawing.Image)(resources.GetObject("titleIcon.Image")));
@@ -251,14 +285,14 @@
             this.profile.TabStop = false;
             this.profile.Click += new System.EventHandler(this.profile_Click);
             // 
-            // menu
+            // menuPanel
             // 
-            this.menu.Controls.Add(this.menuTab);
-            this.menu.Location = new System.Drawing.Point(400, 31);
-            this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(393, 577);
-            this.menu.TabIndex = 0;
-            this.menu.Visible = false;
+            this.menuPanel.Controls.Add(this.menuTab);
+            this.menuPanel.Location = new System.Drawing.Point(400, 31);
+            this.menuPanel.Name = "menuPanel";
+            this.menuPanel.Size = new System.Drawing.Size(393, 577);
+            this.menuPanel.TabIndex = 0;
+            this.menuPanel.Visible = false;
             // 
             // menuTab
             // 
@@ -676,8 +710,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(802, 612);
-            this.Controls.Add(this.menu);
+            this.ClientSize = new System.Drawing.Size(797, 612);
+            this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.buddyList);
             this.Controls.Add(this.myBox);
             this.Controls.Add(this.titleBar);
@@ -690,11 +724,13 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.form_BoderPaint);
             this.titleBar.ResumeLayout(false);
+            this.titleBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memoIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleIcon)).EndInit();
             this.myBox.ResumeLayout(false);
             this.myBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profile)).EndInit();
-            this.menu.ResumeLayout(false);
+            this.menuPanel.ResumeLayout(false);
             this.menuTab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -724,7 +760,7 @@
         private System.Windows.Forms.TextBox nickname_Text;
         private System.Windows.Forms.Label statusMsg;
         private System.Windows.Forms.Label nickname;
-        private System.Windows.Forms.Panel menu;
+        private System.Windows.Forms.Panel menuPanel;
         private BrightIdeasSoftware.ObjectListView buddyList;
         private BrightIdeasSoftware.OLVColumn IdColum;
         private BrightIdeasSoftware.OLVColumn NicknameColum;
@@ -759,6 +795,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.PictureBox memoIcon;
+        private System.Windows.Forms.Label newMemoLabel;
     }
 }
 

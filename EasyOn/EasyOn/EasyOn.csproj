@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0E67C579-4F8F-4375-833A-A7912ACA70F2}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EasyOn</RootNamespace>
     <AssemblyName>EasyOn</AssemblyName>
@@ -51,16 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyCode\Model\ChatLog.cs" />
-    <Compile Include="MyCode\Util\CommonUtil.cs" />
-    <Compile Include="MyCode\Model\Chat.cs" />
-    <Compile Include="MyCode\Packet\ClientPacket\C_Chat.cs" />
-    <Compile Include="MyCode\Form\ChatForm.cs">
+    <Compile Include="MyCode\Model\Memo.cs" />
+    <Compile Include="MyCode\Form\MemoListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyCode\Form\ChatForm.Designer.cs">
-      <DependentUpon>ChatForm.cs</DependentUpon>
+    <Compile Include="MyCode\Form\MemoListForm.Designer.cs">
+      <DependentUpon>MemoListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyCode\Packet\ClientPacket\C_Memo.cs" />
+    <Compile Include="MyCode\Form\ReadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCode\Form\ReadForm.Designer.cs">
+      <DependentUpon>ReadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyCode\Util\CommonUtil.cs" />
     <Compile Include="MyCode\Packet\ClientPacket\C_UpdateGroup.cs" />
     <Compile Include="MyCode\Packet\ClientPacket\C_Buddy.cs" />
     <Compile Include="MyCode\Form\BuddyRequestForm.cs">
@@ -88,14 +93,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyCode\Socket\Worker.cs" />
     <Compile Include="MyCode\Packet\ServerPacket\ReadPacket.cs" />
-    <Compile Include="MyCode\Packet\ClientPacket\SendPacket.cs" />
+    <Compile Include="MyCode\Packet\ClientPacket\WritePacket.cs" />
     <Compile Include="MyCode\Packet\ServerPacket\S_LoginResult.cs" />
     <Compile Include="MyCode\Model\User.cs" />
     <Compile Include="MyCode\Packet\ServerPacket\S_MyInfo.cs" />
     <Compile Include="MyCode\Packet\ServerPacket\S_Buddy.cs" />
-    <Compile Include="MyCode\Packet\ServerPacket\S_Chat.cs" />
-    <EmbeddedResource Include="MyCode\Form\ChatForm.resx">
-      <DependentUpon>ChatForm.cs</DependentUpon>
+    <Compile Include="MyCode\Packet\ServerPacket\S_Memo.cs" />
+    <Compile Include="MyCode\Form\WriteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCode\Form\WriteForm.Designer.cs">
+      <DependentUpon>WriteForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MyCode\Form\MemoListForm.resx">
+      <DependentUpon>MemoListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyCode\Form\BuddyRequestForm.resx">
       <DependentUpon>BuddyRequestForm.cs</DependentUpon>
@@ -119,6 +130,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="MyCode\Form\WriteForm.resx">
+      <DependentUpon>WriteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -146,7 +160,13 @@
     <None Include="Resources\menu.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MyCode\Form\ReadForm.resx">
+      <DependentUpon>ReadForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ObjectListView.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\memo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
